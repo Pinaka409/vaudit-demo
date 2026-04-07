@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -9,7 +9,29 @@
 <style>
 /* --- THEME VARIABLES --- */
 :root {
-  /* Raisin Black Vaudit Theme (Default Agentic) */
+  /* LIGHT MODE (Default) */
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --surface2: #f3f4f6;
+  --border: #e5e7eb;
+  --border-active: rgba(254, 96, 44, 0.5);
+  --text: #111827;
+  --muted: #6b7280;
+  --dim: #9ca3af;
+  --orange: #FE602C;
+  --teal: #00BFA6;
+
+  /* Accent Colors for 5 Core Verticals */
+  --c-ship: #059669; --c-seat: #ea580c; --c-kloud: #7c3aed; --c-ad: #e11d48; --c-pay: #0d9488;
+  
+  /* Dynamic Terminal Colors */
+  --term-bg: #f1f5f9;
+  --term-txt: #475569;
+  --term-fade: linear-gradient(transparent, #f1f5f9);
+}
+
+[data-theme="dark"] {
+  /* DARK MODE (Raisin Black Vaudit Theme) */
   --bg: #1E1E22;
   --surface: #26262b;
   --surface2: #2d2d34;
@@ -18,26 +40,14 @@
   --text: #ffffff;
   --muted: #a1a1aa;
   --dim: #52525b;
-  --orange: #FE602C;
-  --teal: #00BFA6;
 
   /* Accent Colors */
-  --c-ship: #34d399; --c-seat: #fb923c; --c-kloud: #a78bfa; --c-ad: #fb7185;
-  --c-pay: #2dd4bf; --c-inv: #facc15; --c-payr: #38bdf8; --c-tok: #60a5fa;
-}
-
-[data-theme="light"] {
-  --bg: #f9fafb;
-  --surface: #ffffff;
-  --surface2: #f3f4f6;
-  --border: #e5e7eb;
-  --border-active: rgba(254, 96, 44, 0.4);
-  --text: #111827;
-  --muted: #6b7280;
-  --dim: #9ca3af;
+  --c-ship: #34d399; --c-seat: #fb923c; --c-kloud: #a78bfa; --c-ad: #fb7185; --c-pay: #2dd4bf; 
   
-  --c-ship: #059669; --c-seat: #ea580c; --c-kloud: #7c3aed; --c-ad: #e11d48;
-  --c-pay: #0d9488; --c-inv: #ca8a04; --c-payr: #0284c7; --c-tok: #2563eb;
+  /* Dynamic Terminal Colors */
+  --term-bg: #0d0d11;
+  --term-txt: #a1a1aa;
+  --term-fade: linear-gradient(transparent, #0d0d11);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -61,7 +71,7 @@ body {
 .nav-link:hover{color:var(--text);}
 .btn{font-size:14px;font-weight:600;border-radius:8px;padding:8px 20px;cursor:pointer;transition:all .2s;border:none;}
 .btn-primary{background:var(--text);color:var(--bg);}
-.btn-primary:hover{transform:translateY(-1px);}
+.btn-primary:hover{transform:translateY(-1px); opacity:0.9;}
 
 /* THEME TOGGLE */
 .theme-toggle {background:none;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);transition:all 0.2s;}
@@ -70,8 +80,9 @@ body {
 /* HERO & V0 PROMPT BOX - Agentic Style */
 .hero {max-width: 840px; margin: 60px auto 40px; text-align: center; padding: 0 20px;}
 .hero h1 {font-size: clamp(28px, 4vw, 36px); font-weight: 600; letter-spacing: -1px; margin-bottom: 24px;}
-.prompt-wrap {background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: left; transition: all 0.3s; position: relative;}
-.prompt-wrap:focus-within {border-color: var(--orange); box-shadow: 0 0 0 1px var(--orange), 0 10px 30px rgba(0,0,0,0.3);}
+.prompt-wrap {background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; transition: all 0.3s; position: relative;}
+[data-theme="dark"] .prompt-wrap {box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
+.prompt-wrap:focus-within {border-color: var(--orange); box-shadow: 0 0 0 2px rgba(254,96,44,0.1), 0 10px 30px rgba(0,0,0,0.05);}
 .prompt-wrap::before {content: '>'; position: absolute; left: 20px; top: 18px; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--orange); font-weight: bold;}
 .prompt-input {width: 100%; border: none; background: transparent; font-size: 15px; color: var(--text); padding: 2px 8px 8px 24px; font-family: 'DM Mono', monospace; resize: none; outline: none; min-height: 60px;}
 .prompt-input::placeholder {color: var(--dim); font-family: 'Poppins', sans-serif;}
@@ -80,28 +91,29 @@ body {
 .pa-btn {background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); cursor: pointer; transition: all 0.2s;}
 .pa-btn:hover {color: var(--text); border-color: var(--dim); background: var(--surface2);}
 .submit-btn {background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-weight: 600; font-size: 12px; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;}
-.submit-btn:hover {transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,255,255,0.1);}
+.submit-btn:hover {transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
 .submit-btn:disabled {opacity: 0.5; cursor: not-allowed; transform: none;}
 
-/* VERTICALS GRID - Execution Threads */
-.verticals-section {max-width: 1100px; margin: 0 auto 80px; padding: 0 20px;}
+/* VERTICALS FLEX GRID - Centered for 5 items */
+.verticals-section {max-width: 1000px; margin: 0 auto 80px; padding: 0 20px;}
 .vs-header {display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 24px;}
 .vs-title {font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;}
 .status-dot {width: 8px; height: 8px; border-radius: 50%; background: var(--dim);}
 .status-dot.active {background: var(--orange); animation: pulse 1.5s infinite;}
 
-.v-grid {display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
-@media (max-width: 900px) { .v-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 500px) { .v-grid { grid-template-columns: 1fr; } }
-
+.v-grid {display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;}
 .v-card {
+  width: calc(33.333% - 11px); min-width: 280px; 
   background: var(--surface); border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: all 0.3s; position: relative; overflow: hidden; height: 180px;
 }
-.v-card.idle:hover {border-color: var(--border2);}
+@media (max-width: 900px) { .v-card { width: calc(50% - 8px); } }
+@media (max-width: 600px) { .v-card { width: 100%; } }
+
+.v-card.idle:hover {border-color: var(--border2); transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.03);}
 .v-card.scanning {border-color: var(--border-active); box-shadow: inset 0 2px 0 0 var(--border-active);}
 
 /* Header of the card */
-.vc-header {display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.1);}
+.vc-header {display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid var(--border); background: var(--surface2);}
 .vc-title-wrap {display: flex; align-items: center; gap: 8px;}
 .vc-icon {font-size: 14px;}
 .vc-name {font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace;}
@@ -113,12 +125,12 @@ body {
 .vc-integ {font-size: 10px; font-family: 'DM Mono', monospace; color: var(--dim); margin-top: 12px;}
 
 /* Terminal Execution Log (Agentic Vibe) */
-.vc-body-scan {display: none; padding: 12px 16px; flex: 1; background: #0d0d11; color: #a1a1aa; font-family: 'DM Mono', monospace; font-size: 10px; overflow-y: hidden; position: relative;}
-.vc-body-scan::after {content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 20px; background: linear-gradient(transparent, #0d0d11);}
+.vc-body-scan {display: none; padding: 12px 16px; flex: 1; background: var(--term-bg); color: var(--term-txt); font-family: 'DM Mono', monospace; font-size: 10px; overflow-y: hidden; position: relative;}
+.vc-body-scan::after {content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 20px; background: var(--term-fade);}
 .log-line {margin-bottom: 6px; line-height: 1.4; opacity: 0; animation: typeIn 0.1s forwards;}
 .log-line span.sys {color: var(--dim);}
-.log-line span.ok {color: #4ade80;}
-.log-line span.warn {color: #fbbf24;}
+.log-line span.ok {color: var(--c-ship);}
+.log-line span.warn {color: var(--orange);}
 
 /* Results */
 .vc-body-done {display: none; padding: 20px 16px; flex: 1; align-items: center; justify-content: center; flex-direction: column; background: var(--surface); position: relative;}
@@ -128,26 +140,27 @@ body {
 /* State Toggling */
 .v-card.idle .vc-body-idle {display: flex;}
 .v-card.idle .vc-status {color: var(--dim); border-color: var(--border);}
-.v-card.idle .vc-status::before {content: 'IDLE';}
+.v-card.idle .vc-status::before {content: 'WAITING';}
 
 .v-card.scanning .vc-body-idle {display: none;}
 .v-card.scanning .vc-body-scan {display: block;}
 .v-card.scanning .vc-status {color: var(--orange); border-color: rgba(254,96,44,0.3); background: rgba(254,96,44,0.1); animation: blink 1s infinite;}
-.v-card.scanning .vc-status::before {content: 'EXEC';}
+.v-card.scanning .vc-status::before {content: 'AUDITING';}
 
 .v-card.done .vc-body-idle, .v-card.done .vc-body-scan {display: none;}
 .v-card.done .vc-body-done {display: flex; animation: fi 0.4s ease forwards;}
 .v-card.done .vc-status {color: var(--teal); border-color: rgba(0,191,166,0.3); background: rgba(0,191,166,0.1);}
-.v-card.done .vc-status::before {content: 'DONE';}
+.v-card.done .vc-status::before {content: 'COMPLETED';}
 
 /* TOTAL SUMMARY BAR */
-.total-summary {display: none; max-width: 1100px; margin: -40px auto 60px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 8px; padding: 20px 32px; align-items: center; justify-content: space-between; box-shadow: 0 12px 40px rgba(0,0,0,0.2);}
+.total-summary {display: none; max-width: 1000px; margin: -40px auto 60px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 8px; padding: 20px 32px; align-items: center; justify-content: space-between; box-shadow: 0 12px 40px rgba(0,0,0,0.08);}
+[data-theme="dark"] .total-summary {box-shadow: 0 12px 40px rgba(0,0,0,0.3);}
 .total-summary.visible {display: flex; animation: fi 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;}
 .ts-left {display: flex; flex-direction: column;}
 .ts-lbl {font-size: 12px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;}
 .ts-amt {font-size: 36px; font-weight: 600; font-family: 'DM Mono', monospace; color: var(--text); line-height: 1; letter-spacing: -1px;}
 .ts-btn {background: var(--text); color: var(--bg); font-weight: 600; font-family: 'DM Mono', monospace; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.2s;}
-.ts-btn:hover {transform: translateY(-2px);}
+.ts-btn:hover {transform: translateY(-2px); background: var(--orange); color: #fff;}
 
 @keyframes fi {from {opacity: 0; transform: translateY(5px);} to {opacity: 1; transform: none;}}
 @keyframes pulse {0%, 100% {opacity: 0.4;} 50% {opacity: 1;}}
@@ -167,26 +180,26 @@ body {
   </a>
   <div class="nav-r">
     <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark Mode">
-      <svg id="moon-icon" style="display:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      <svg id="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <svg id="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      <svg id="sun-icon" style="display:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
     </button>
-    <span class="nav-link">Architecture</span>
-    <span class="nav-link">Docs</span>
+    <span class="nav-link">Platform</span>
+    <span class="nav-link">Features</span>
     <button class="btn btn-primary">Sign In</button>
   </div>
 </nav>
 
 <div class="hero">
-  <h1 id="hero-title">Initialize Diagnostic Scan</h1>
+  <h1 id="hero-title">Run a Simulated Spend Audit</h1>
   <div class="prompt-wrap">
-    <textarea class="prompt-input" id="inp" placeholder="Target domain or company name..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); startAudit();}"></textarea>
+    <textarea class="prompt-input" id="inp" placeholder="Enter your domain or company name to audit your spend..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); startAudit();}"></textarea>
     <div class="prompt-actions">
       <div class="pa-left">
-        <button class="pa-btn" onclick="document.getElementById('inp').value='D2C E-commerce Brand'">[sys.load_template: D2C]</button>
-        <button class="pa-btn" onclick="document.getElementById('inp').value='B2B SaaS Startup'">[sys.load_template: SaaS]</button>
+        <button class="pa-btn" onclick="document.getElementById('inp').value='D2C E-commerce Brand'">[load_template: D2C]</button>
+        <button class="pa-btn" onclick="document.getElementById('inp').value='B2B SaaS Startup'">[load_template: SaaS]</button>
       </div>
       <button class="submit-btn" id="sbtn" onclick="startAudit()">
-        EXECUTE <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        RUN AUDIT <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
       </button>
     </div>
   </div>
@@ -195,7 +208,7 @@ body {
 <div class="verticals-section">
   <div class="vs-header">
     <div class="status-dot" id="sys-dot"></div>
-    <span class="vs-title">Parallel Execution Threads</span>
+    <span class="vs-title">Sequential Audit Threads</span>
   </div>
   
   <div class="v-grid" id="v-grid">
@@ -205,11 +218,11 @@ body {
         <div class="vc-status"></div>
       </div>
       <div class="vc-body-idle">
-        <div class="vc-desc">Heuristic analysis of routing inefficiencies, dimensional weight errors, and SLA failures.</div>
+        <div class="vc-desc">Heuristic audit of routing inefficiencies, dimensional weight errors, and SLA failures.</div>
         <div class="vc-integ">Connects to: FedEx, UPS, 3PL APIs</div>
       </div>
       <div class="vc-body-scan" id="log-shipid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-ship)" id="amt-shipid">$0</div><div class="r-lbl">Detected Variance</div></div>
+      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-ship)" id="amt-shipid">$0</div><div class="r-lbl">Waste Identified</div></div>
     </div>
 
     <div class="v-card idle" data-id="seatid">
@@ -218,11 +231,11 @@ body {
         <div class="vc-status"></div>
       </div>
       <div class="vc-body-idle">
-        <div class="vc-desc">Identification of shadow IT, orphaned accounts, and overlapping software functions.</div>
+        <div class="vc-desc">Audit to identify shadow IT, orphaned accounts, and overlapping software subscriptions.</div>
         <div class="vc-integ">Connects to: Okta, Google Workspace</div>
       </div>
       <div class="vc-body-scan" id="log-seatid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-seat)" id="amt-seatid">$0</div><div class="r-lbl">Detected Variance</div></div>
+      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-seat)" id="amt-seatid">$0</div><div class="r-lbl">Waste Identified</div></div>
     </div>
 
     <div class="v-card idle" data-id="kloudid">
@@ -231,11 +244,11 @@ body {
         <div class="vc-status"></div>
       </div>
       <div class="vc-body-idle">
-        <div class="vc-desc">Deep scan of unattached volumes, idle instances, and sub-optimal storage tiers.</div>
+        <div class="vc-desc">Deep audit of unattached volumes, idle instances, and sub-optimal storage tiers.</div>
         <div class="vc-integ">Connects to: AWS, GCP, Azure</div>
       </div>
       <div class="vc-body-scan" id="log-kloudid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-kloud)" id="amt-kloudid">$0</div><div class="r-lbl">Detected Variance</div></div>
+      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-kloud)" id="amt-kloudid">$0</div><div class="r-lbl">Waste Identified</div></div>
     </div>
 
     <div class="v-card idle" data-id="adid">
@@ -244,11 +257,11 @@ body {
         <div class="vc-status"></div>
       </div>
       <div class="vc-body-idle">
-        <div class="vc-desc">Algorithmic detection of invalid traffic, click fraud, and campaign structure waste.</div>
+        <div class="vc-desc">Algorithmic audit for invalid traffic, click fraud, and campaign structure waste.</div>
         <div class="vc-integ">Connects to: Google Ads, Meta</div>
       </div>
       <div class="vc-body-scan" id="log-adid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-ad)" id="amt-adid">$0</div><div class="r-lbl">Detected Variance</div></div>
+      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-ad)" id="amt-adid">$0</div><div class="r-lbl">Waste Identified</div></div>
     </div>
 
     <div class="v-card idle" data-id="paymentid">
@@ -257,60 +270,22 @@ body {
         <div class="vc-status"></div>
       </div>
       <div class="vc-body-idle">
-        <div class="vc-desc">Analysis of processor fee structures, cross-border penalties, and failed routing.</div>
+        <div class="vc-desc">Audit of processor fee structures, cross-border penalties, and failed routing.</div>
         <div class="vc-integ">Connects to: Stripe, Adyen, Braintree</div>
       </div>
       <div class="vc-body-scan" id="log-paymentid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-pay)" id="amt-paymentid">$0</div><div class="r-lbl">Detected Variance</div></div>
+      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-pay)" id="amt-paymentid">$0</div><div class="r-lbl">Waste Identified</div></div>
     </div>
 
-    <div class="v-card idle" data-id="inventoryid">
-      <div class="vc-header">
-        <div class="vc-title-wrap"><span class="vc-icon">📦</span><span class="vc-name" style="color:var(--c-inv)">Inv ID</span></div>
-        <div class="vc-status"></div>
-      </div>
-      <div class="vc-body-idle">
-        <div class="vc-desc">Calculation of dead stock holding costs and warehousing inefficiencies.</div>
-        <div class="vc-integ">Connects to: ERP, WMS APIs</div>
-      </div>
-      <div class="vc-body-scan" id="log-inventoryid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-inv)" id="amt-inventoryid">$0</div><div class="r-lbl">Detected Variance</div></div>
-    </div>
-
-    <div class="v-card idle" data-id="payrollid">
-      <div class="vc-header">
-        <div class="vc-title-wrap"><span class="vc-icon">💵</span><span class="vc-name" style="color:var(--c-payr)">Payroll ID</span></div>
-        <div class="vc-status"></div>
-      </div>
-      <div class="vc-body-idle">
-        <div class="vc-desc">Cross-referencing HRIS data for contractor misclassifications and tax leakage.</div>
-        <div class="vc-integ">Connects to: Gusto, Rippling, Deel</div>
-      </div>
-      <div class="vc-body-scan" id="log-payrollid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-payr)" id="amt-payrollid">$0</div><div class="r-lbl">Detected Variance</div></div>
-    </div>
-
-    <div class="v-card idle" data-id="tokenid">
-      <div class="vc-header">
-        <div class="vc-title-wrap"><span class="vc-icon">✨</span><span class="vc-name" style="color:var(--c-tok)">Token ID</span></div>
-        <div class="vc-status"></div>
-      </div>
-      <div class="vc-body-idle">
-        <div class="vc-desc">Auditing LLM API usage, prompt caching efficiency, and token waste.</div>
-        <div class="vc-integ">Connects to: OpenAI, Anthropic</div>
-      </div>
-      <div class="vc-body-scan" id="log-tokenid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-tok)" id="amt-tokenid">$0</div><div class="r-lbl">Detected Variance</div></div>
-    </div>
   </div>
 </div>
 
 <div class="total-summary" id="totalSummary">
   <div class="ts-left">
-    <div class="ts-lbl">Total Simulated Monthly Recovery</div>
+    <div class="ts-lbl">Total Simulated Monthly Waste</div>
     <div class="ts-amt" id="ts-amt-val">$0</div>
   </div>
-  <button class="ts-btn">Execute Actual Connectors -></button>
+  <button class="ts-btn">Connect Accounts to Recover Waste -></button>
 </div>
 
 <script>
@@ -327,14 +302,11 @@ function toggleTheme() {
 
 // --- TERMINAL LOG CONTENT ---
 const logs = {
-  shipid: ["<span class='sys'>[SYS]</span> Initiating Logistics module...", "Authenticating carrier profiles...", "<span class='ok'>[OK]</span> Profiles loaded.", "Applying SLA heuristic models...", "Scanning 90-day waybill proxy...", "<span class='warn'>[WARN]</span> Dim-weight variance found."],
-  seatid: ["<span class='sys'>[SYS]</span> Initiating SaaS module...", "Querying IdP proxies...", "Mapping email domains...", "Cross-referencing active seats vs login freq...", "<span class='warn'>[WARN]</span> 14 orphaned accounts identified.", "Calculating redundant tool overlap..."],
-  kloudid: ["<span class='sys'>[SYS]</span> Initiating Cloud module...", "Assuming read-only IAM role...", "<span class='ok'>[OK]</span> Access granted.", "Scanning EC2 utilization...", "Checking S3 lifecycle policies...", "<span class='warn'>[WARN]</span> Unattached EBS volumes detected."],
-  adid: ["<span class='sys'>[SYS]</span> Initiating Ad module...", "Pinging Meta/Google Graph APIs...", "Analyzing CPC vs conversion delta...", "Running invalid traffic simulation...", "<span class='ok'>[OK]</span> Simulation complete.", "Calculating structural campaign waste..."],
-  paymentid: ["<span class='sys'>[SYS]</span> Initiating Payments module...", "Parsing interchange fee structures...", "Analyzing cross-border txn volume...", "<span class='warn'>[WARN]</span> Sub-optimal routing detected.", "Modeling Stripe Interchange++ savings..."],
-  inventoryid: ["<span class='sys'>[SYS]</span> Initiating Inventory module...", "Syncing WMS proxy data...", "Calculating holding costs vs velocity...", "Identifying dead stock clusters...", "<span class='ok'>[OK]</span> Data aggregated.", "Computing liquidation variance..."],
-  payrollid: ["<span class='sys'>[SYS]</span> Initiating Payroll module...", "Connecting to HRIS nodes...", "Verifying contractor classifications...", "Scanning state tax compliance models...", "<span class='ok'>[OK]</span> Models matched.", "Aggregating payroll leakage..."],
-  tokenid: ["<span class='sys'>[SYS]</span> Initiating Token module...", "Pinging OpenAI usage endpoints...", "Analyzing context window efficiency...", "<span class='warn'>[WARN]</span> Zero prompt caching detected.", "Calculating redundant token burn..."]
+  shipid: ["<span class='sys'>[SYS]</span> Initiating Logistics audit...", "Authenticating carrier profiles...", "<span class='ok'>[OK]</span> Profiles loaded.", "Applying SLA heuristic models...", "Scanning 90-day waybill proxy...", "<span class='warn'>[WARN]</span> Dim-weight waste identified."],
+  seatid: ["<span class='sys'>[SYS]</span> Initiating SaaS audit...", "Querying IdP proxies...", "Mapping email domains...", "Cross-referencing active seats vs login freq...", "<span class='warn'>[WARN]</span> 14 orphaned accounts identified.", "Calculating redundant tool waste..."],
+  kloudid: ["<span class='sys'>[SYS]</span> Initiating Cloud audit...", "Assuming read-only IAM role...", "<span class='ok'>[OK]</span> Access granted.", "Scanning EC2 utilization...", "Checking S3 lifecycle policies...", "<span class='warn'>[WARN]</span> Unattached EBS volume waste detected."],
+  adid: ["<span class='sys'>[SYS]</span> Initiating Ad audit...", "Pinging Meta/Google Graph APIs...", "Analyzing CPC vs conversion delta...", "Running invalid traffic simulation...", "<span class='ok'>[OK]</span> Simulation complete.", "Calculating structural campaign waste..."],
+  paymentid: ["<span class='sys'>[SYS]</span> Initiating Payments audit...", "Parsing interchange fee structures...", "Analyzing cross-border txn volume...", "<span class='warn'>[WARN]</span> Sub-optimal routing waste detected.", "Modeling Stripe Interchange++ savings..."]
 };
 
 // --- ANIMATION HELPERS ---
@@ -351,7 +323,7 @@ function animNum(el, target, dur=1200) {
   requestAnimationFrame(tick);
 }
 
-// --- AUDIT LOGIC ---
+// --- SEQUENTIAL AUDIT LOGIC ---
 let running = false;
 
 async function streamLogs(id, logArray, totalTime) {
@@ -380,55 +352,67 @@ async function startAudit() {
   running = true;
   inp.disabled = true;
   document.getElementById('sbtn').disabled = true;
-  document.getElementById('hero-title').textContent = `Processing: ${val}`;
+  document.getElementById('hero-title').textContent = `Auditing: ${val}`;
   document.getElementById('totalSummary').classList.remove('visible');
   document.getElementById('sys-dot').classList.add('active');
 
   const cards = document.querySelectorAll('.v-card');
   
-  // Phase 1: Set to scanning
+  // Reset all cards to idle first (in case of re-run)
   cards.forEach(card => {
-    card.classList.remove('idle', 'done');
-    card.classList.add('scanning');
+    card.classList.remove('scanning', 'done');
+    card.classList.add('idle');
   });
 
-  // Phase 2: Start log streams
-  const scanPromises = Array.from(cards).map(async (card) => {
-    const id = card.dataset.id;
-    const scanTime = Math.floor(Math.random() * 2000) + 2500; // 2.5s - 4.5s
-    await streamLogs(id, logs[id], scanTime);
-    return id;
-  });
-
-  // API Call (Fallback provided if backend fails)
-  let auditData = null;
-  const fetchPromise = generateAuditData(val).catch(e => {
+  // Call API in the background. It usually takes 3-5 seconds.
+  // The UI sequence will deliberately take ~12-15 seconds to look thorough.
+  let auditDataPromise = generateAuditData(val).catch(e => {
+    console.error("API Error (using fallback):", e);
     return {
       totalWaste: Math.floor(Math.random() * 40000) + 20000,
       categories: {}
     };
   });
 
-  const results = await Promise.all([fetchPromise, ...scanPromises]);
-  auditData = results[0];
+  // Phase 2: Sequential Execution
+  // Loop through cards ONE BY ONE
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+    const id = card.dataset.id;
+    
+    // Set this specific card to scanning
+    card.classList.remove('idle');
+    card.classList.add('scanning');
+    
+    // Stream logs for about 2.5 seconds per card
+    await streamLogs(id, logs[id], 2500);
 
-  // Phase 3: Done state
-  cards.forEach(card => {
+    // Wait for API to resolve (usually resolves during the first card's scan)
+    const auditData = await auditDataPromise;
+
+    // Set this specific card to done
     card.classList.remove('scanning');
     card.classList.add('done');
-    const id = card.dataset.id;
+    
+    // Animate numbers based on API return
     let wasteAmt = auditData.categories?.[id]?.wasteAmount || Math.floor(Math.random() * 2000) + 500;
     animNum(document.getElementById(`amt-${id}`), wasteAmt);
-  });
 
+    // Pause briefly before starting the next vertical
+    await sleep(600);
+  }
+
+  // Phase 3: Final Summary
+  const finalAuditData = await auditDataPromise;
+  
   await sleep(400);
   document.getElementById('sys-dot').classList.remove('active');
   document.getElementById('totalSummary').classList.add('visible');
-  animNum(document.getElementById('ts-amt-val'), auditData.totalWaste || 52000, 1500);
+  animNum(document.getElementById('ts-amt-val'), finalAuditData.totalWaste || 52000, 1500);
 
   inp.disabled = false;
   document.getElementById('sbtn').disabled = false;
-  document.getElementById('hero-title').textContent = "Diagnostic Terminated.";
+  document.getElementById('hero-title').textContent = "Audit Complete.";
   running = false;
 }
 
