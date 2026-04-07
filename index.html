@@ -21,7 +21,7 @@
   --orange: #FE602C;
   --teal: #00BFA6;
 
-  /* Accent Colors for 5 Core Verticals */
+  /* Accent Colors */
   --c-ship: #059669; --c-seat: #ea580c; --c-kloud: #7c3aed; --c-ad: #e11d48; --c-pay: #0d9488;
   
   /* Dynamic Terminal Colors */
@@ -31,7 +31,7 @@
 }
 
 [data-theme="dark"] {
-  /* DARK MODE (Raisin Black Vaudit Theme) */
+  /* DARK MODE */
   --bg: #1E1E22;
   --surface: #26262b;
   --surface2: #2d2d34;
@@ -41,10 +41,7 @@
   --muted: #a1a1aa;
   --dim: #52525b;
 
-  /* Accent Colors */
   --c-ship: #34d399; --c-seat: #fb923c; --c-kloud: #a78bfa; --c-ad: #fb7185; --c-pay: #2dd4bf; 
-  
-  /* Dynamic Terminal Colors */
   --term-bg: #0d0d11;
   --term-txt: #a1a1aa;
   --term-fade: linear-gradient(transparent, #0d0d11);
@@ -86,16 +83,25 @@ body {
 .prompt-wrap::before {content: '>'; position: absolute; left: 20px; top: 18px; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--orange); font-weight: bold;}
 .prompt-input {width: 100%; border: none; background: transparent; font-size: 15px; color: var(--text); padding: 2px 8px 8px 24px; font-family: 'DM Mono', monospace; resize: none; outline: none; min-height: 60px;}
 .prompt-input::placeholder {color: var(--dim); font-family: 'Poppins', sans-serif;}
-.prompt-actions {display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);}
-.pa-left {display: flex; gap: 8px;}
-.pa-btn {background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;}
-.pa-btn:hover {color: var(--text); border-color: var(--dim); background: var(--surface2);}
+.prompt-actions {display: flex; justify-content: flex-end; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);}
 .submit-btn {background: var(--text); color: var(--bg); font-family: 'DM Mono', monospace; font-weight: 600; font-size: 12px; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;}
 .submit-btn:hover {transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
 .submit-btn:disabled {opacity: 0.5; cursor: not-allowed; transform: none;}
 
-/* VERTICALS FLEX GRID */
-.verticals-section {max-width: 1000px; margin: 0 auto 60px; padding: 0 20px;}
+/* TEMPLATES SECTION (v0 Style) */
+.templates-section {max-width: 840px; margin: 0 auto 80px; padding: 0 20px; animation: fi 0.5s ease forwards;}
+.ts-header {font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 16px; text-align: left;}
+.t-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;}
+@media (max-width: 600px) { .t-grid { grid-template-columns: 1fr; } }
+.t-card {background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 8px;}
+.t-card:hover {border-color: var(--dim); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.04);}
+[data-theme="dark"] .t-card:hover {box-shadow: 0 6px 16px rgba(0,0,0,0.2);}
+.t-icon {font-size: 18px;}
+.t-title {font-size: 13px; font-weight: 600; color: var(--text);}
+.t-desc {font-size: 12px; color: var(--muted); line-height: 1.4;}
+
+/* VERTICALS FLEX GRID (Hidden Initially) */
+.verticals-section {display: none; max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; animation: fi 0.6s ease forwards;}
 .vs-header {display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 24px;}
 .vs-title {font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;}
 .status-dot {width: 8px; height: 8px; border-radius: 50%; background: var(--dim);}
@@ -109,22 +115,18 @@ body {
 @media (max-width: 900px) { .v-card { width: calc(50% - 8px); } }
 @media (max-width: 600px) { .v-card { width: 100%; } }
 
-.v-card.idle:hover {border-color: var(--border2); transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.03);}
 .v-card.scanning {border-color: var(--border-active); box-shadow: inset 0 2px 0 0 var(--border-active);}
 
-/* Header of the card */
 .vc-header {display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid var(--border); background: var(--surface2);}
 .vc-title-wrap {display: flex; align-items: center; gap: 8px;}
 .vc-icon {font-size: 14px;}
 .vc-name {font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace;}
 .vc-status {font-size: 9px; font-family: 'DM Mono', monospace; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; border: 1px solid;}
 
-/* Card Bodies */
 .vc-body-idle {padding: 16px; flex: 1; display: flex; flex-direction: column;}
 .vc-desc {font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: auto;}
 .vc-integ {font-size: 10px; font-family: 'DM Mono', monospace; color: var(--dim); margin-top: 12px;}
 
-/* Terminal Execution Log */
 .vc-body-scan {display: none; padding: 12px 16px; flex: 1; background: var(--term-bg); color: var(--term-txt); font-family: 'DM Mono', monospace; font-size: 10px; overflow-y: hidden; position: relative;}
 .vc-body-scan::after {content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 20px; background: var(--term-fade);}
 .log-line {margin-bottom: 6px; line-height: 1.4; opacity: 0; animation: typeIn 0.1s forwards;}
@@ -132,12 +134,10 @@ body {
 .log-line span.ok {color: var(--c-ship);}
 .log-line span.warn {color: var(--orange);}
 
-/* Results */
 .vc-body-done {display: none; padding: 20px 16px; flex: 1; align-items: center; justify-content: center; flex-direction: column; background: var(--surface); position: relative;}
 .r-amount {font-size: 26px; font-weight: 600; font-family: 'DM Mono', monospace; letter-spacing: -1px;}
 .r-lbl {font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;}
 
-/* State Toggling */
 .v-card.idle .vc-body-idle {display: flex;}
 .v-card.idle .vc-status {color: var(--dim); border-color: var(--border);}
 .v-card.idle .vc-status::before {content: 'WAITING';}
@@ -162,10 +162,7 @@ body {
 .ts-btn {background: var(--text); color: var(--bg); font-weight: 600; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.2s;}
 .ts-btn:hover {transform: translateY(-2px); background: var(--orange); color: #fff;}
 
-
 /* --- BELOW THE FOLD CONTENT --- */
-
-/* TESTIMONIALS (Bento Grid) */
 .social{max-width:1000px;margin:0 auto;padding:80px 20px;border-top:1px solid var(--border);}
 .social-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:12px;}
 .social-h{font-size:24px;font-weight:600;color:var(--text);letter-spacing:-.5px;}
@@ -185,7 +182,6 @@ body {
 .tcard-name{font-size:13px;font-weight:600;color:var(--text);}
 .tcard-role{font-size:12px;color:var(--muted);margin-top:2px;}
 
-/* INTELLIGENCE BRIEFS (Articles) */
 .insights{max-width:1000px;margin:0 auto;padding:0 20px 80px;}
 .insights-top{margin-bottom:32px;}
 .insights-h{font-size:24px;font-weight:600;color:var(--text);letter-spacing:-.5px;margin-bottom:8px;}
@@ -202,14 +198,13 @@ body {
 .icard-link{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;margin-top:8px;transition:color .2s;}
 .icard:hover .icard-link{color:var(--orange);}
 
-/* FOOTER */
 .footer{border-top:1px solid var(--border);padding:32px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;max-width:1000px;margin:0 auto;}
 .flogo{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--text);}
 .flinks{display:flex;gap:24px;}
 .flink{font-size:13px;color:var(--muted);cursor:pointer;transition:color .2s;}
 .flink:hover{color:var(--text);}
 
-@keyframes fi {from {opacity: 0; transform: translateY(5px);} to {opacity: 1; transform: none;}}
+@keyframes fi {from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: none;}}
 @keyframes pulse {0%, 100% {opacity: 0.4;} 50% {opacity: 1;}}
 @keyframes blink {0%, 100% {opacity: 1;} 50% {opacity: 0.5;}}
 @keyframes typeIn {from {opacity: 0; transform: translateY(2px);} to {opacity: 1; transform: none;}}
@@ -241,10 +236,6 @@ body {
   <div class="prompt-wrap">
     <textarea class="prompt-input" id="inp" placeholder="Enter your domain or company name to audit your spend..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); startAudit();}"></textarea>
     <div class="prompt-actions">
-      <div class="pa-left">
-        <button class="pa-btn" onclick="document.getElementById('inp').value='D2C E-commerce Brand'">🛍️ D2C E-commerce</button>
-        <button class="pa-btn" onclick="document.getElementById('inp').value='B2B SaaS Startup'">☁️ B2B SaaS</button>
-      </div>
       <button class="submit-btn" id="sbtn" onclick="startAudit()">
         RUN AUDIT <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
       </button>
@@ -252,7 +243,28 @@ body {
   </div>
 </div>
 
-<div class="verticals-section">
+<div class="templates-section" id="templates-section">
+  <div class="ts-header">Start with a template</div>
+  <div class="t-grid">
+    <div class="t-card" onclick="runTemplate('B2B SaaS Startup')">
+      <div class="t-icon">☁️</div>
+      <div class="t-title">B2B SaaS Startup</div>
+      <div class="t-desc">Audits unattached AWS volumes, orphaned user seats, and overlapping SaaS tools.</div>
+    </div>
+    <div class="t-card" onclick="runTemplate('D2C E-commerce Brand')">
+      <div class="t-icon">🛍️</div>
+      <div class="t-title">D2C E-commerce Brand</div>
+      <div class="t-desc">Checks Meta/Google ad waste, Stripe routing errors, and 3PL dimension weight fees.</div>
+    </div>
+    <div class="t-card" onclick="runTemplate('Enterprise Fintech')">
+      <div class="t-icon">💳</div>
+      <div class="t-title">Enterprise Fintech</div>
+      <div class="t-desc">Cross-references processor interchange fees and deep-scans cloud infrastructure.</div>
+    </div>
+  </div>
+</div>
+
+<div class="verticals-section" id="verticals-section">
   <div class="vs-header">
     <div class="status-dot" id="sys-dot"></div>
     <span class="vs-title">Sequential Audit Threads</span>
@@ -443,6 +455,12 @@ function toggleTheme() {
   document.getElementById('sun-icon').style.display = next === 'dark' ? 'block' : 'none';
 }
 
+// --- TEMPLATE CLICK HANDLER ---
+function runTemplate(val) {
+  document.getElementById('inp').value = val;
+  startAudit();
+}
+
 // --- TERMINAL LOG CONTENT ---
 const logs = {
   shipid: ["<span class='sys'>[SYS]</span> Initiating Logistics audit...", "Authenticating carrier profiles...", "<span class='ok'>[OK]</span> Profiles loaded.", "Applying SLA heuristic models...", "Scanning 90-day waybill proxy...", "<span class='warn'>[WARN]</span> Dim-weight waste identified."],
@@ -481,7 +499,6 @@ async function streamLogs(id, logArray, totalTime) {
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
     
-    // Add randomness to typing speed for realism
     await sleep(delay + (Math.random() * 300 - 150));
   }
 }
@@ -496,18 +513,26 @@ async function startAudit() {
   inp.disabled = true;
   document.getElementById('sbtn').disabled = true;
   document.getElementById('hero-title').textContent = `Auditing: ${val}`;
+  
+  // UX SWAP: Hide templates, show verticals, and scroll down smoothly
+  document.getElementById('templates-section').style.display = 'none';
+  const vSec = document.getElementById('verticals-section');
+  vSec.style.display = 'block';
+  setTimeout(() => {
+    vSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+
   document.getElementById('totalSummary').classList.remove('visible');
   document.getElementById('sys-dot').classList.add('active');
 
   const cards = document.querySelectorAll('.v-card');
   
-  // Reset all cards to idle first (in case of re-run)
   cards.forEach(card => {
     card.classList.remove('scanning', 'done');
     card.classList.add('idle');
   });
 
-  // Call API in the background.
+  // Call API
   let auditDataPromise = generateAuditData(val).catch(e => {
     console.error("API Error (using fallback):", e);
     return {
