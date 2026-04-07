@@ -10,7 +10,7 @@
 /* --- THEME VARIABLES --- */
 :root {
   /* LIGHT MODE (Colorful & Soft) */
-  --bg: #fafaf9; /* Soft warm off-white instead of pure white */
+  --bg: #fafaf9; 
   --surface: #ffffff;
   --border: #e5e7eb;
   --border-active: rgba(254, 96, 44, 0.5);
@@ -138,7 +138,7 @@ body {
 .v-card.idle:hover {transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.04);}
 .v-card.scanning {border-color: var(--border-active) !important; box-shadow: inset 0 2px 0 0 var(--border-active);}
 
-/* Header of the card - transparent so pastel color shows through */
+/* Header of the card */
 .vc-header {display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid rgba(0,0,0,0.05); background: transparent;}
 [data-theme="dark"] .vc-header {border-bottom-color: rgba(255,255,255,0.05);}
 .vc-title-wrap {display: flex; align-items: center; gap: 8px;}
@@ -159,17 +159,20 @@ body {
 .log-line span.ok {color: var(--c-ship);}
 .log-line span.warn {color: var(--orange);}
 
-/* Results - Transparent background so pastel color stays */
+/* Results */
 .vc-body-done {display: none; padding: 20px 16px; flex: 1; align-items: center; justify-content: center; flex-direction: column; background: transparent; position: relative;}
 .r-amount {font-size: 26px; font-weight: 600; font-family: 'DM Mono', monospace; letter-spacing: -1px;}
 .r-lbl {font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;}
 
-/* GRANULAR BREAKDOWN LIST (Dynamic) */
-.bd-list {margin-top: 16px; width: 100%; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 12px; display: flex; flex-direction: column; gap: 6px;}
-[data-theme="dark"] .bd-list {border-top-color: rgba(255,255,255,0.1);}
-.bd-item {display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; animation: typeIn 0.3s ease forwards;}
-.bd-name {color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 65%;}
-.bd-val {color: var(--text); font-weight: 500; font-size: 11px;}
+/* GRANULAR PLATFORM LIST (SPEND VS WASTE) */
+.plat-list {margin-top: 16px; width: 100%; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 16px; display: flex; flex-direction: column; gap: 12px;}
+[data-theme="dark"] .plat-list {border-top-color: rgba(255,255,255,0.1);}
+.plat-row {display: flex; justify-content: space-between; align-items: flex-start; animation: typeIn 0.3s ease forwards;}
+.plat-name {font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600; color: var(--text); display: flex; align-items: center;}
+.plat-name::before {content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-right: 6px; opacity: 0.5;}
+.plat-stats {text-align: right;}
+.plat-spend {font-size: 10px; color: var(--muted); margin-bottom: 2px;}
+.plat-waste {font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600; color: var(--orange);}
 
 /* State Toggling */
 .v-card.idle .vc-body-idle {display: flex;}
@@ -268,7 +271,7 @@ body {
 <div class="hero">
   <h1 id="hero-title">Run a Simulated Spend Audit</h1>
   <div class="prompt-wrap">
-    <textarea class="prompt-input" id="inp" placeholder="Enter your domain or company name to audit your spend..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); startAudit();}"></textarea>
+    <textarea class="prompt-input" id="inp" placeholder="Enter a website (e.g. vaudit.com, stripe.com) or company name to audit..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); startAudit();}"></textarea>
     <div class="prompt-actions">
       <button class="submit-btn" id="sbtn" onclick="startAudit()">
         RUN AUDIT <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
@@ -318,7 +321,7 @@ body {
       <div class="vc-body-done">
         <div class="r-amount" style="color:var(--c-ship)" id="amt-shipid">$0</div>
         <div class="r-lbl">Waste Identified</div>
-        <div class="bd-list" id="bd-shipid"></div>
+        <div class="plat-list" id="bd-shipid"></div>
       </div>
     </div>
 
@@ -335,7 +338,7 @@ body {
       <div class="vc-body-done">
         <div class="r-amount" style="color:var(--c-seat)" id="amt-seatid">$0</div>
         <div class="r-lbl">Waste Identified</div>
-        <div class="bd-list" id="bd-seatid"></div>
+        <div class="plat-list" id="bd-seatid"></div>
       </div>
     </div>
 
@@ -352,7 +355,7 @@ body {
       <div class="vc-body-done">
         <div class="r-amount" style="color:var(--c-kloud)" id="amt-kloudid">$0</div>
         <div class="r-lbl">Waste Identified</div>
-        <div class="bd-list" id="bd-kloudid"></div>
+        <div class="plat-list" id="bd-kloudid"></div>
       </div>
     </div>
 
@@ -369,7 +372,7 @@ body {
       <div class="vc-body-done">
         <div class="r-amount" style="color:var(--c-ad)" id="amt-adid">$0</div>
         <div class="r-lbl">Waste Identified</div>
-        <div class="bd-list" id="bd-adid"></div>
+        <div class="plat-list" id="bd-adid"></div>
       </div>
     </div>
 
@@ -386,7 +389,7 @@ body {
       <div class="vc-body-done">
         <div class="r-amount" style="color:var(--c-pay)" id="amt-paymentid">$0</div>
         <div class="r-lbl">Waste Identified</div>
-        <div class="bd-list" id="bd-paymentid"></div>
+        <div class="plat-list" id="bd-paymentid"></div>
       </div>
     </div>
   </div>
@@ -495,13 +498,13 @@ const logs = {
   paymentid: ["<span class='sys'>[SYS]</span> Initiating Payments audit...", "Parsing interchange fee structures...", "Analyzing cross-border txn volume...", "<span class='warn'>[WARN]</span> Sub-optimal routing waste detected.", "Modeling Stripe Interchange++ savings..."]
 };
 
-// Fallback detail item names per category
-const bdFallbacks = {
-  shipid: ["Dim-Weight Overcharge", "SLA Violations"],
-  seatid: ["Orphaned Accounts", "Redundant Software"],
-  kloudid: ["Idle EC2 Instances", "Unattached Volumes"],
-  adid: ["Invalid Bot Clicks", "Frequency Waste"],
-  paymentid: ["Sub-optimal Routing", "Cross-border Fees"]
+// Realistic fallbacks mapping directly to specific platforms
+const platformFallbacks = {
+  shipid: ["FedEx", "UPS"],
+  seatid: ["Salesforce", "Google Workspace"],
+  kloudid: ["AWS EC2", "AWS S3"],
+  adid: ["Google Ads", "Meta Ads"],
+  paymentid: ["Stripe", "Adyen"]
 };
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -580,23 +583,43 @@ async function startAudit() {
     let wasteAmt = auditData.categories?.[id]?.wasteAmount || Math.floor(Math.random() * 2000) + 500;
     animNum(document.getElementById(`amt-${id}`), wasteAmt);
 
-    // Dynamic Granular Breakdown Injection
+    // Dynamic Granular Platform Breakdown (Spend vs Waste)
     const bdContainer = document.getElementById(`bd-${id}`);
     bdContainer.innerHTML = '';
     
-    let items = auditData.categories?.[id]?.items || auditData.categories?.[id]?.vectors || [];
+    let platforms = auditData.categories?.[id]?.platforms || auditData.categories?.[id]?.services || auditData.categories?.[id]?.items || [];
     
-    if (items.length === 0) {
-      let f1 = Math.floor(wasteAmt * 0.65);
-      let f2 = wasteAmt - f1;
-      items = [ {name: bdFallbacks[id][0], waste: f1}, {name: bdFallbacks[id][1], waste: f2} ];
+    // If API didn't return perfect platform structure, use calculated realistic proxies
+    if (platforms.length === 0 || !platforms[0].spend) {
+      let p1_waste = Math.floor(wasteAmt * 0.65);
+      let p2_waste = wasteAmt - p1_waste;
+      
+      // Calculate realistic spend ratios (spend is usually 5x to 10x higher than waste)
+      let p1_spend = p1_waste * (Math.floor(Math.random() * 5) + 6); 
+      let p2_spend = p2_waste * (Math.floor(Math.random() * 5) + 6);
+      
+      platforms = [
+        { name: platformFallbacks[id][0], spend: p1_spend, waste: p1_waste },
+        { name: platformFallbacks[id][1], spend: p2_spend, waste: p2_waste }
+      ];
     } else {
-      items = items.slice(0, 2); 
+      platforms = platforms.slice(0, 2); 
     }
 
-    items.forEach(item => {
-      let v = item.waste || item.amount || item.spend || 0;
-      bdContainer.innerHTML += `<div class="bd-item"><span class="bd-name">${item.name}</span><span class="bd-val">$${Math.round(v).toLocaleString()}</span></div>`;
+    platforms.forEach(plat => {
+      let pName = plat.provider || plat.name || "Vendor";
+      let pSpend = plat.spend || (plat.waste * 8) || 0;
+      let pWaste = plat.waste || plat.amount || 0;
+      
+      bdContainer.innerHTML += `
+        <div class="plat-row">
+          <div class="plat-name" style="color: var(--c-${id.replace('id', '')})">${pName}</div>
+          <div class="plat-stats">
+            <div class="plat-spend">Est. Spend: $${Math.round(pSpend).toLocaleString()}</div>
+            <div class="plat-waste">Waste: $${Math.round(pWaste).toLocaleString()}</div>
+          </div>
+        </div>
+      `;
     });
 
     await sleep(600);
