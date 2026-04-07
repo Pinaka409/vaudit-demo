@@ -9,10 +9,9 @@
 <style>
 /* --- THEME VARIABLES --- */
 :root {
-  /* LIGHT MODE (Default) */
-  --bg: #ffffff;
-  --surface: #f9fafb;
-  --surface2: #f3f4f6;
+  /* LIGHT MODE (Colorful & Soft) */
+  --bg: #fafaf9; /* Soft warm off-white instead of pure white */
+  --surface: #ffffff;
   --border: #e5e7eb;
   --border-active: rgba(254, 96, 44, 0.5);
   --text: #111827;
@@ -21,8 +20,15 @@
   --orange: #FE602C;
   --teal: #00BFA6;
 
-  /* Accent Colors */
+  /* Base Accent Colors */
   --c-ship: #059669; --c-seat: #ea580c; --c-kloud: #7c3aed; --c-ad: #e11d48; --c-pay: #0d9488;
+  
+  /* Pastel Card Backgrounds for Light Mode */
+  --c-ship-bg: #ecfdf5; --c-ship-bd: #a7f3d0;
+  --c-seat-bg: #fff7ed; --c-seat-bd: #fed7aa;
+  --c-kloud-bg: #f5f3ff; --c-kloud-bd: #ddd6fe;
+  --c-ad-bg: #fff1f2;   --c-ad-bd: #fecdd3;
+  --c-pay-bg: #f0fdfa;  --c-pay-bd: #99f6e4;
   
   /* Dynamic Terminal Colors */
   --term-bg: #f1f5f9;
@@ -32,16 +38,23 @@
 
 [data-theme="dark"] {
   /* DARK MODE */
-  --bg: #1E1E22;
-  --surface: #26262b;
-  --surface2: #2d2d34;
-  --border: rgba(255,255,255,0.1);
+  --bg: #1A1A1E;
+  --surface: #222226;
+  --border: rgba(255,255,255,0.08);
   --border-active: rgba(254, 96, 44, 0.4);
   --text: #ffffff;
   --muted: #a1a1aa;
   --dim: #52525b;
 
   --c-ship: #34d399; --c-seat: #fb923c; --c-kloud: #a78bfa; --c-ad: #fb7185; --c-pay: #2dd4bf; 
+  
+  /* Very subtle tinted backgrounds for Dark Mode */
+  --c-ship-bg: rgba(52, 211, 153, 0.03); --c-ship-bd: rgba(52, 211, 153, 0.15);
+  --c-seat-bg: rgba(251, 146, 60, 0.03); --c-seat-bd: rgba(251, 146, 60, 0.15);
+  --c-kloud-bg: rgba(167, 139, 250, 0.03); --c-kloud-bd: rgba(167, 139, 250, 0.15);
+  --c-ad-bg: rgba(251, 113, 133, 0.03);   --c-ad-bd: rgba(251, 113, 133, 0.15);
+  --c-pay-bg: rgba(45, 212, 191, 0.03);  --c-pay-bd: rgba(45, 212, 191, 0.15);
+
   --term-bg: #0d0d11;
   --term-txt: #a1a1aa;
   --term-fade: linear-gradient(transparent, #0d0d11);
@@ -60,7 +73,7 @@ body {
 ::selection{background:var(--orange);color:#fff;}
 
 /* NAV */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--border); background: var(--bg);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--border); background: var(--surface);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-name{font-size:24px;font-weight:600;color:var(--text);letter-spacing:-.5px;}
 .nav-r{display:flex;align-items:center;gap:16px;}
@@ -72,12 +85,12 @@ body {
 
 /* THEME TOGGLE */
 .theme-toggle {background:none;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);transition:all 0.2s;}
-.theme-toggle:hover {background:var(--surface2);}
+.theme-toggle:hover {background:var(--bg);}
 
-/* HERO & V0 PROMPT BOX */
+/* HERO & PROMPT BOX */
 .hero {max-width: 840px; margin: 60px auto 40px; text-align: center; padding: 0 20px;}
 .hero h1 {font-size: clamp(28px, 4vw, 36px); font-weight: 600; letter-spacing: -1px; margin-bottom: 24px;}
-.prompt-wrap {background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; transition: all 0.3s; position: relative;}
+.prompt-wrap {background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-align: left; transition: all 0.3s; position: relative;}
 [data-theme="dark"] .prompt-wrap {box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
 .prompt-wrap:focus-within {border-color: var(--orange); box-shadow: 0 0 0 1px var(--orange), 0 10px 30px rgba(0,0,0,0.05);}
 .prompt-wrap::before {content: '>'; position: absolute; left: 20px; top: 18px; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--orange); font-weight: bold;}
@@ -88,7 +101,7 @@ body {
 .submit-btn:hover {transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
 .submit-btn:disabled {opacity: 0.5; cursor: not-allowed; transform: none;}
 
-/* TEMPLATES SECTION (v0 Style) */
+/* TEMPLATES SECTION */
 .templates-section {max-width: 840px; margin: 0 auto 80px; padding: 0 20px; animation: fi 0.5s ease forwards;}
 .ts-header {font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 16px; text-align: left;}
 .t-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;}
@@ -100,7 +113,7 @@ body {
 .t-title {font-size: 13px; font-weight: 600; color: var(--text);}
 .t-desc {font-size: 12px; color: var(--muted); line-height: 1.4;}
 
-/* VERTICALS FLEX GRID (Hidden Initially) */
+/* VERTICALS FLEX GRID */
 .verticals-section {display: none; max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; animation: fi 0.6s ease forwards;}
 .vs-header {display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 24px;}
 .vs-title {font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;}
@@ -109,35 +122,56 @@ body {
 
 .v-grid {display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;}
 .v-card {
-  width: calc(33.333% - 11px); min-width: 280px; 
-  background: var(--surface); border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: all 0.3s; position: relative; overflow: hidden; height: 180px;
+  width: calc(33.333% - 11px); min-width: 280px; min-height: 180px;
+  border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: all 0.3s; position: relative; overflow: hidden;
 }
 @media (max-width: 900px) { .v-card { width: calc(50% - 8px); } }
 @media (max-width: 600px) { .v-card { width: 100%; } }
 
-.v-card.scanning {border-color: var(--border-active); box-shadow: inset 0 2px 0 0 var(--border-active);}
+/* COLOR CODED BACKGROUNDS */
+.v-card[data-id="shipid"] { background: var(--c-ship-bg); border-color: var(--c-ship-bd); }
+.v-card[data-id="seatid"] { background: var(--c-seat-bg); border-color: var(--c-seat-bd); }
+.v-card[data-id="kloudid"] { background: var(--c-kloud-bg); border-color: var(--c-kloud-bd); }
+.v-card[data-id="adid"] { background: var(--c-ad-bg); border-color: var(--c-ad-bd); }
+.v-card[data-id="paymentid"] { background: var(--c-pay-bg); border-color: var(--c-pay-bd); }
 
-.vc-header {display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid var(--border); background: var(--surface2);}
+.v-card.idle:hover {transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.04);}
+.v-card.scanning {border-color: var(--border-active) !important; box-shadow: inset 0 2px 0 0 var(--border-active);}
+
+/* Header of the card - transparent so pastel color shows through */
+.vc-header {display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid rgba(0,0,0,0.05); background: transparent;}
+[data-theme="dark"] .vc-header {border-bottom-color: rgba(255,255,255,0.05);}
 .vc-title-wrap {display: flex; align-items: center; gap: 8px;}
 .vc-icon {font-size: 14px;}
 .vc-name {font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace;}
 .vc-status {font-size: 9px; font-family: 'DM Mono', monospace; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; border: 1px solid;}
 
-.vc-body-idle {padding: 16px; flex: 1; display: flex; flex-direction: column;}
+/* Card Bodies */
+.vc-body-idle {padding: 16px; flex: 1; display: flex; flex-direction: column; background: transparent;}
 .vc-desc {font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: auto;}
 .vc-integ {font-size: 10px; font-family: 'DM Mono', monospace; color: var(--dim); margin-top: 12px;}
 
-.vc-body-scan {display: none; padding: 12px 16px; flex: 1; background: var(--term-bg); color: var(--term-txt); font-family: 'DM Mono', monospace; font-size: 10px; overflow-y: hidden; position: relative;}
+/* Terminal Execution Log */
+.vc-body-scan {display: none; padding: 12px 16px; flex: 1; min-height: 120px; background: var(--term-bg); color: var(--term-txt); font-family: 'DM Mono', monospace; font-size: 10px; overflow-y: hidden; position: relative;}
 .vc-body-scan::after {content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 20px; background: var(--term-fade);}
 .log-line {margin-bottom: 6px; line-height: 1.4; opacity: 0; animation: typeIn 0.1s forwards;}
 .log-line span.sys {color: var(--dim);}
 .log-line span.ok {color: var(--c-ship);}
 .log-line span.warn {color: var(--orange);}
 
-.vc-body-done {display: none; padding: 20px 16px; flex: 1; align-items: center; justify-content: center; flex-direction: column; background: var(--surface); position: relative;}
+/* Results - Transparent background so pastel color stays */
+.vc-body-done {display: none; padding: 20px 16px; flex: 1; align-items: center; justify-content: center; flex-direction: column; background: transparent; position: relative;}
 .r-amount {font-size: 26px; font-weight: 600; font-family: 'DM Mono', monospace; letter-spacing: -1px;}
 .r-lbl {font-size: 10px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;}
 
+/* GRANULAR BREAKDOWN LIST (Dynamic) */
+.bd-list {margin-top: 16px; width: 100%; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 12px; display: flex; flex-direction: column; gap: 6px;}
+[data-theme="dark"] .bd-list {border-top-color: rgba(255,255,255,0.1);}
+.bd-item {display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; animation: typeIn 0.3s ease forwards;}
+.bd-name {color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 65%;}
+.bd-val {color: var(--text); font-weight: 500; font-size: 11px;}
+
+/* State Toggling */
 .v-card.idle .vc-body-idle {display: flex;}
 .v-card.idle .vc-status {color: var(--dim); border-color: var(--border);}
 .v-card.idle .vc-status::before {content: 'WAITING';}
@@ -153,7 +187,7 @@ body {
 .v-card.done .vc-status::before {content: 'COMPLETED';}
 
 /* TOTAL SUMMARY BAR */
-.total-summary {display: none; max-width: 1000px; margin: -20px auto 80px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 8px; padding: 20px 32px; align-items: center; justify-content: space-between; box-shadow: 0 12px 40px rgba(0,0,0,0.08);}
+.total-summary {display: none; max-width: 1000px; margin: -20px auto 80px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 8px; padding: 20px 32px; align-items: center; justify-content: space-between; box-shadow: 0 12px 40px rgba(0,0,0,0.05);}
 [data-theme="dark"] .total-summary {box-shadow: 0 12px 40px rgba(0,0,0,0.3);}
 .total-summary.visible {display: flex; animation: fi 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;}
 .ts-left {display: flex; flex-direction: column;}
@@ -171,8 +205,8 @@ body {
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px;}
 @media(max-width:768px){.testimonials{grid-template-columns:1fr 1fr;}}
 @media(max-width:500px){.testimonials{grid-template-columns:1fr;}}
-.tcard{border:1px solid var(--border);border-radius:12px;padding:24px;background:var(--surface);display:flex;flex-direction:column;gap:16px;transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.02);}
-.tcard:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.05);}
+.tcard{border:1px solid var(--border);border-radius:12px;padding:24px;background: var(--surface);display:flex;flex-direction:column;gap:16px;transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,0.02);}
+.tcard:hover{border-color:var(--dim);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.05);}
 [data-theme="dark"] .tcard:hover{box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 .tcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
 .tcard-amount{font-size:28px;font-weight:600;font-family:'DM Mono',monospace;letter-spacing:-1px;}
@@ -189,8 +223,8 @@ body {
 .insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 @media(max-width:768px){.insights-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:500px){.insights-grid{grid-template-columns:1fr;}}
-.icard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:all .2s;cursor:pointer;}
-.icard:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.05);}
+.icard{background: var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:all .2s;cursor:pointer;}
+.icard:hover{border-color:var(--dim);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.05);}
 [data-theme="dark"] .icard:hover{box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 .icard-tag{font-size:10px;font-weight:600;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.5px;}
 .icard-title{font-size:16px;font-weight:600;color:var(--text);line-height:1.4;}
@@ -281,7 +315,11 @@ body {
         <div class="vc-integ">Connects to: FedEx, UPS, 3PL APIs</div>
       </div>
       <div class="vc-body-scan" id="log-shipid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-ship)" id="amt-shipid">$0</div><div class="r-lbl">Waste Identified</div></div>
+      <div class="vc-body-done">
+        <div class="r-amount" style="color:var(--c-ship)" id="amt-shipid">$0</div>
+        <div class="r-lbl">Waste Identified</div>
+        <div class="bd-list" id="bd-shipid"></div>
+      </div>
     </div>
 
     <div class="v-card idle" data-id="seatid">
@@ -294,7 +332,11 @@ body {
         <div class="vc-integ">Connects to: Okta, Google Workspace</div>
       </div>
       <div class="vc-body-scan" id="log-seatid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-seat)" id="amt-seatid">$0</div><div class="r-lbl">Waste Identified</div></div>
+      <div class="vc-body-done">
+        <div class="r-amount" style="color:var(--c-seat)" id="amt-seatid">$0</div>
+        <div class="r-lbl">Waste Identified</div>
+        <div class="bd-list" id="bd-seatid"></div>
+      </div>
     </div>
 
     <div class="v-card idle" data-id="kloudid">
@@ -307,7 +349,11 @@ body {
         <div class="vc-integ">Connects to: AWS, GCP, Azure</div>
       </div>
       <div class="vc-body-scan" id="log-kloudid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-kloud)" id="amt-kloudid">$0</div><div class="r-lbl">Waste Identified</div></div>
+      <div class="vc-body-done">
+        <div class="r-amount" style="color:var(--c-kloud)" id="amt-kloudid">$0</div>
+        <div class="r-lbl">Waste Identified</div>
+        <div class="bd-list" id="bd-kloudid"></div>
+      </div>
     </div>
 
     <div class="v-card idle" data-id="adid">
@@ -320,7 +366,11 @@ body {
         <div class="vc-integ">Connects to: Google Ads, Meta</div>
       </div>
       <div class="vc-body-scan" id="log-adid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-ad)" id="amt-adid">$0</div><div class="r-lbl">Waste Identified</div></div>
+      <div class="vc-body-done">
+        <div class="r-amount" style="color:var(--c-ad)" id="amt-adid">$0</div>
+        <div class="r-lbl">Waste Identified</div>
+        <div class="bd-list" id="bd-adid"></div>
+      </div>
     </div>
 
     <div class="v-card idle" data-id="paymentid">
@@ -333,9 +383,12 @@ body {
         <div class="vc-integ">Connects to: Stripe, Adyen, Braintree</div>
       </div>
       <div class="vc-body-scan" id="log-paymentid"></div>
-      <div class="vc-body-done"><div class="r-amount" style="color:var(--c-pay)" id="amt-paymentid">$0</div><div class="r-lbl">Waste Identified</div></div>
+      <div class="vc-body-done">
+        <div class="r-amount" style="color:var(--c-pay)" id="amt-paymentid">$0</div>
+        <div class="r-lbl">Waste Identified</div>
+        <div class="bd-list" id="bd-paymentid"></div>
+      </div>
     </div>
-
   </div>
 </div>
 
@@ -377,30 +430,6 @@ body {
       </div>
       <div class="tcard-quote">"FedEx had been overbilling on dimensional weight for 14 months. Vaudit caught it in the first audit — we disputed and recovered $22k."</div>
       <div><div class="tcard-name">Priya M.</div><div class="tcard-role">COO · Marketplace</div></div>
-    </div>
-    <div class="tcard">
-      <div class="tcard-top">
-        <div><div class="tcard-amount" style="color:var(--c-pay);">$18k</div><div class="tcard-period">recovered / month</div></div>
-        <div class="tcard-cat" style="color:var(--c-pay);border-color:var(--c-pay);">PAYMENTID</div>
-      </div>
-      <div class="tcard-quote">"We were on a blended rate with Stripe. Vaudit showed us the exact saving from switching to interchange++ — it took a day to fix."</div>
-      <div><div class="tcard-name">Tom B.</div><div class="tcard-role">CFO · Subscription Box</div></div>
-    </div>
-    <div class="tcard">
-      <div class="tcard-top">
-        <div><div class="tcard-amount" style="color:var(--c-seat);">$14k</div><div class="tcard-period">recovered / month</div></div>
-        <div class="tcard-cat" style="color:var(--c-seat);border-color:var(--c-seat);">SEATID</div>
-      </div>
-      <div class="tcard-quote">"We had 11 tools doing the same things. Nobody owned renewals. Vaudit gave us a full inventory — we consolidated to 4 tools in a month."</div>
-      <div><div class="tcard-name">Megan L.</div><div class="tcard-role">VP Finance · Tech Co</div></div>
-    </div>
-    <div class="tcard">
-      <div class="tcard-top">
-        <div><div class="tcard-amount" style="color:var(--orange);">$89k</div><div class="tcard-period">recovered / month</div></div>
-        <div class="tcard-cat" style="color:var(--orange);border-color:rgba(254,96,44,.5);">ALL IDs</div>
-      </div>
-      <div class="tcard-quote">"Ran the audit before our Series B due diligence. Found $89k/month. Investors were impressed we'd already identified and acted on it."</div>
-      <div><div class="tcard-name">Alex R.</div><div class="tcard-role">CEO · $22M Series B</div></div>
     </div>
   </div>
 </div>
@@ -444,24 +473,20 @@ body {
 </div>
 
 <script>
-// --- THEME TOGGLE LOGIC ---
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
   const next = current === 'light' ? 'dark' : 'light';
   html.setAttribute('data-theme', next);
-  
   document.getElementById('moon-icon').style.display = next === 'light' ? 'block' : 'none';
   document.getElementById('sun-icon').style.display = next === 'dark' ? 'block' : 'none';
 }
 
-// --- TEMPLATE CLICK HANDLER ---
 function runTemplate(val) {
   document.getElementById('inp').value = val;
   startAudit();
 }
 
-// --- TERMINAL LOG CONTENT ---
 const logs = {
   shipid: ["<span class='sys'>[SYS]</span> Initiating Logistics audit...", "Authenticating carrier profiles...", "<span class='ok'>[OK]</span> Profiles loaded.", "Applying SLA heuristic models...", "Scanning 90-day waybill proxy...", "<span class='warn'>[WARN]</span> Dim-weight waste identified."],
   seatid: ["<span class='sys'>[SYS]</span> Initiating SaaS audit...", "Querying IdP proxies...", "Mapping email domains...", "Cross-referencing active seats vs login freq...", "<span class='warn'>[WARN]</span> 14 orphaned accounts identified.", "Calculating redundant tool waste..."],
@@ -470,8 +495,17 @@ const logs = {
   paymentid: ["<span class='sys'>[SYS]</span> Initiating Payments audit...", "Parsing interchange fee structures...", "Analyzing cross-border txn volume...", "<span class='warn'>[WARN]</span> Sub-optimal routing waste detected.", "Modeling Stripe Interchange++ savings..."]
 };
 
-// --- ANIMATION HELPERS ---
+// Fallback detail item names per category
+const bdFallbacks = {
+  shipid: ["Dim-Weight Overcharge", "SLA Violations"],
+  seatid: ["Orphaned Accounts", "Redundant Software"],
+  kloudid: ["Idle EC2 Instances", "Unattached Volumes"],
+  adid: ["Invalid Bot Clicks", "Frequency Waste"],
+  paymentid: ["Sub-optimal Routing", "Cross-border Fees"]
+};
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 function animNum(el, target, dur=1200) {
   if (!el) return;
   const s = performance.now();
@@ -484,12 +518,11 @@ function animNum(el, target, dur=1200) {
   requestAnimationFrame(tick);
 }
 
-// --- SEQUENTIAL AUDIT LOGIC ---
 let running = false;
 
 async function streamLogs(id, logArray, totalTime) {
   const container = document.getElementById(`log-${id}`);
-  container.innerHTML = ''; // clear
+  container.innerHTML = ''; 
   const delay = totalTime / logArray.length;
   
   for(let i=0; i<logArray.length; i++) {
@@ -498,7 +531,6 @@ async function streamLogs(id, logArray, totalTime) {
     div.innerHTML = `> ${logArray[i]}`;
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
-    
     await sleep(delay + (Math.random() * 300 - 150));
   }
 }
@@ -514,34 +546,24 @@ async function startAudit() {
   document.getElementById('sbtn').disabled = true;
   document.getElementById('hero-title').textContent = `Auditing: ${val}`;
   
-  // UX SWAP: Hide templates, show verticals, and scroll down smoothly
   document.getElementById('templates-section').style.display = 'none';
   const vSec = document.getElementById('verticals-section');
   vSec.style.display = 'block';
-  setTimeout(() => {
-    vSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 100);
+  setTimeout(() => { vSec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
 
   document.getElementById('totalSummary').classList.remove('visible');
   document.getElementById('sys-dot').classList.add('active');
 
   const cards = document.querySelectorAll('.v-card');
-  
   cards.forEach(card => {
     card.classList.remove('scanning', 'done');
     card.classList.add('idle');
   });
 
-  // Call API
   let auditDataPromise = generateAuditData(val).catch(e => {
-    console.error("API Error (using fallback):", e);
-    return {
-      totalWaste: Math.floor(Math.random() * 40000) + 20000,
-      categories: {}
-    };
+    return { totalWaste: Math.floor(Math.random() * 40000) + 20000, categories: {} };
   });
 
-  // Phase 2: Sequential Execution
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i];
     const id = card.dataset.id;
@@ -550,7 +572,6 @@ async function startAudit() {
     card.classList.add('scanning');
     
     await streamLogs(id, logs[id], 2500);
-
     const auditData = await auditDataPromise;
 
     card.classList.remove('scanning');
@@ -559,10 +580,28 @@ async function startAudit() {
     let wasteAmt = auditData.categories?.[id]?.wasteAmount || Math.floor(Math.random() * 2000) + 500;
     animNum(document.getElementById(`amt-${id}`), wasteAmt);
 
+    // Dynamic Granular Breakdown Injection
+    const bdContainer = document.getElementById(`bd-${id}`);
+    bdContainer.innerHTML = '';
+    
+    let items = auditData.categories?.[id]?.items || auditData.categories?.[id]?.vectors || [];
+    
+    if (items.length === 0) {
+      let f1 = Math.floor(wasteAmt * 0.65);
+      let f2 = wasteAmt - f1;
+      items = [ {name: bdFallbacks[id][0], waste: f1}, {name: bdFallbacks[id][1], waste: f2} ];
+    } else {
+      items = items.slice(0, 2); 
+    }
+
+    items.forEach(item => {
+      let v = item.waste || item.amount || item.spend || 0;
+      bdContainer.innerHTML += `<div class="bd-item"><span class="bd-name">${item.name}</span><span class="bd-val">$${Math.round(v).toLocaleString()}</span></div>`;
+    });
+
     await sleep(600);
   }
 
-  // Phase 3: Final Summary
   const finalAuditData = await auditDataPromise;
   
   await sleep(400);
@@ -576,7 +615,6 @@ async function startAudit() {
   running = false;
 }
 
-// Backend API Caller
 async function generateAuditData(companyName) {
   const url = `/api/audit`;
   const payload = { companyName };
